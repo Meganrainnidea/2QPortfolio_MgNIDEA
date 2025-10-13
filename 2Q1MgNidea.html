@@ -1,123 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ateneo de Manila University</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ateneo De Manila (ADMU), Programs, Achievements, Legacy."> 
+  <meta name="keywords" content="Top Four Universities in the Philippines, ADMU, Education, Courses, History, Programs">
+  <meta name="author" content="NIDEA, Megan">
+  <title>Top Four Universities in the Philippines</title>
+  <link rel="icon" href="../assets/top4univ_favicon2.png" type="image/png"/>
+
   <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      color: #222;
-    }
 
-    header {
-      background-color: #002171; /* darker, richer blue */
-      color: white;
-      text-align: center;
-      padding: 2rem 0;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    header img {
-      width: 90px;
-      display: block;
-      margin: 0 auto 12px;
-    }
+  body {
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    background-color: #f5f7fb;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-    h1 {
-      margin: 0;
-      font-size: 1.9rem;
-      letter-spacing: 0.5px;
-    }
+  nav {
+    background: linear-gradient(to right, #001b4f, #002f9e);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(6px);
+  }
 
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 25px;
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
 
-    h2 {
-      color: #002171;
-      border-bottom: 2px solid #002171;
-      padding-bottom: 6px;
-      margin-top: 1.8rem;
-      font-size: 1.3rem;
-    }
+  nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background-color: #ffdd00;
+    transition: width 0.3s ease;
+  }
 
-    p {
-      line-height: 1.7;
-      text-align: justify;
-    }
+  nav a:hover::after,
+  nav a.active::after {
+    width: 100%;
+  }
 
-    img {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 15px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+  nav a:hover {
+    color: #ffdd00;
+    transform: scale(1.1);
+  }
+  nav a.active {
+    color: #ffdd00;
+    font-weight: 600;
+  }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+ 
+  header {
+    position: relative;
+    height: 320px;
+    background: 
+      linear-gradient(to bottom, rgba(0, 0, 40, 0.1) 20%, rgba(0, 0, 60, 0.8) 100%),
+      url("assets/ADMUheader.jpg") no-repeat center/cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    padding-bottom: 40px;
+    overflow: hidden;
+  }
 
-    th, td {
-      padding: 12px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
+  header::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 30, 0.1), rgba(0, 0, 40, 0.85));
+    z-index: 1;
+  }
 
-    th {
-      background-color: #002171;
-      color: white;
-      font-weight: 600;
-    }
+  header * {
+    position: relative;
+    z-index: 2;
+  }
 
-    tr:nth-child(even) {
-      background-color: #f3f6fa;
-    }
+  header img {
+    width: 90px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    animation: fadeInDown 1s ease forwards;
+  }
 
-    iframe {
-      display: block;
-      margin: 20px auto;
-      border-radius: 8px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-    }
+  header h1 {
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1s ease forwards;
+  }
 
-    footer {
-      text-align: center;
-      background-color: #00154d;
-      color: white;
-      padding: 1rem 0;
-      margin-top: 2.5rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.3px;
-    }
+  header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 0.4rem;
+    animation: fadeInUp 1.4s ease forwards;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  h2 {
+    color: #001f6b;
+    border-left: 6px solid #001f6b;
+    padding-left: 12px;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+
+  p {
+    text-align: justify;
+    margin-top: 0.8rem;
+    line-height: 1.8;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 18px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 12px;
+    border: 1px solid #d4d7e1;
+    text-align: left;
+  }
+
+  th {
+    background-color: #002f9e;
+    color: white;
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f4f7fc;
+  }
+
+  tr:hover {
+    background-color: #e7efff;
+    transition: 0.3s;
+  }
+
+ 
+  iframe {
+    display: block;
+    margin: 25px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    max-width: 100%;
+  }
+
+  footer {
+    text-align: center;
+    background: linear-gradient(to right, #001b4f, #002f9e);
+    color: white;
+    padding: 1.3rem 0;
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.4px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  footer a {
+    color: #ffdd00;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
   </style>
 </head>
+
 <body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="UST.html">UST</a>
+    <a href="UP.html">UP</a>
+    <a href="LaSalle.html">La Salle</a>
+    <a href="ADMU.html" class="active">Ateneo</a>
+  </nav>
+
+
   <header>
-    <img src="https://upload.wikimedia.org/wikipedia/en/0/0a/Ateneo_de_Manila_University_seal.svg" alt="Ateneo de Manila University Logo">
+    <img src="Ateneologo.png" alt="Ateneo de Manila University Logo">
     <h1>Ateneo de Manila University</h1>
     <p><strong>Undergraduate Programs & University Overview</strong></p>
   </header>
 
+  
   <main>
     <h2>History</h2>
     <p>
       Founded in 1859, Ateneo de Manila University traces its roots to the Escuela Municipal de Manila, established by Spanish Jesuits in Intramuros. The school evolved through the years, becoming Ateneo Municipal de Manila in 1865 and offering a liberal arts-based education. In 1902, during the American period, it became a private institution and adopted its present name. Despite challenges such as the 1932 fire and wartime destruction, Ateneo rebuilt itself and moved to its Loyola Heights campus in 1952. Today, Ateneo stands as a premier university known for academic excellence, leadership formation, and social involvement.
     </p> 
 
-    <img src="https://ateneo.edu/sites/default/files/styles/1200x600/public/2021-07/ateneo-campus-aerial.jpg" alt="Ateneo de Manila University Campus">
+    <img src="assets/ADMUCampus.png" alt="Ateneo de Manila University Campus">
 
     <h2>Campus</h2>
     <p>
@@ -168,7 +316,7 @@
       The Ateneo Hymn, titled <em>"A Song for Mary"</em>, expresses devotion to the Blessed Virgin Mary, the university’s patroness, and symbolizes the spirit of service, excellence, and faith that Ateneans uphold. It is traditionally sung during university events, graduation ceremonies, and athletic victories.
     </p>
 
-    <iframe width="1312" height="738" src="https://www.youtube.com/embed/u7sghHIdWBk?list=RDu7sghHIdWBk" title="Ateneo Hymn Song For Mary with lyrics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="1312" height="738" src="https://www.youtube.com/embed/u7sghHIdWBk" title="Ateneo Hymn Song For Mary with lyrics" frameborder="0" allowfullscreen></iframe>
 
     <h2>Admissions Information</h2>
     <p>

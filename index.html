@@ -1,35 +1,164 @@
-<DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF 8">
-        <meta name="viewport" content="width=devuce=width, initial-scale=1.0">
-        <meta name=" description" content="2Q Portfolio" />
-        <meta name = "keywords" content="2Q, Portfolio, Projects and Development"/>
-        <meta name ="author" content = "Nidea, Megan" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="2Q Portfolio" />
+  <meta name="keywords" content="2Q, Portfolio, Projects and Development" />
+  <meta name="author" content="Nidea, Megan" />
+  <title>Megan's Webpage</title>
+  <link rel="icon" href="./assets/pshslogo.png" sizes="32x32" type="image/png" />
 
-        <title> Megan's Webpage </title>
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="icon" href="./assets/pshslogo.png"sizes= "32x32" type="image/png" />
-        <script src = "script.js" defer ></script>
+  <style>
+  /* ---------- General Reset ---------- */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+  }
 
-    <head>
-        <header>
-            <div>
-                <img src="./assets/pshslogo.png" alt = "pshs logo" title="The Official Logo" width="50px" height ="50px" />
-                <h1> 
-                    My Portfolio of my work in the 2nd quarter
-                </h1>
-            </div>
-            <nav>
-                <a href="./public/2Q1MgNidea.html" > First Graded </a>
-                <a href ='#' > Second Graded </a>
-                <a href ='#' > Third Graded </a>
-                <a href ='#' > Access to our Project</a>
-            </nav>
-        </header>
-    </body>
-    </head>
-    <body>
-    </html>
-    
-    </body>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ---------- Hero Section ---------- */
+  .hero {
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #a5d8ff, #fbc4ab, #fde2e4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.8) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    color: #333;
+    animation: fadeIn 1.2s ease-in-out;
+  }
+
+  .hero-content img {
+    width: 80px;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ---------- Navigation ---------- */
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    background-color: #ffffffb0;
+    color: #444;
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+  }
+
+  nav a:hover {
+    background-color: #ffd6e0;
+    transform: translateY(-3px);
+    color: #222;
+  }
+
+  /* ---------- About Section ---------- */
+  .about {
+    background: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #333;
+  }
+
+  .about h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .about p {
+    font-size: 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    background: linear-gradient(to right, #fde2e4, #a5d8ff);
+    color: #444;
+    letter-spacing: 0.3px;
+  }
+
+  /* ---------- Animation ---------- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="./assets/pshslogo.png" alt="PSHS logo" title="The Official Logo" />
+      <h1>Megan’s 2nd Quarter Portfolio</h1>
+      <p class="subtitle"> 9-Magnesium 💫</p>
+
+      <nav>
+        <a href="./public/2Q1MgNidea.html">First Graded</a>
+        <a href="#">Second Graded</a>
+        <a href="#">Third Graded</a>
+        <a href="#">Our Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about">
+    <section>
+      <h2>Welcome!</h2>
+      <p>
+        Hi! I'm <strong>Megan Nidea</strong>, and this is my second quarter portfolio for SY 2025-2026 !!
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Megan Nidea | Philippine Science High School
+  </footer>
+</body>
+</html>
