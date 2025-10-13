@@ -1,58 +1,300 @@
 <!DOCTYPE html>
-<html lang="en "> 
-<head> 
-    <meta charset="UTF -8">
-    <meta name="viewport" content="width=devide-width, initial scale=1.0">
-    <meta name="description" content="Ateneo De Manila (ADMU), Programs, Achievements, Legacy."> 
-    <meta name="keywords" content="Top Four Universities in the Philippines, ADMU, Education, Courses, History, Programs">
-    <meta name="author" content="NIDEA, Megan">
-    <title> Top Four Universities in the Philippines</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../assets/top4univ_favicon2.png" type="image/png"/>
-    <script src="script.js"defer></script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ateneo De Manila (ADMU), Programs, Achievements, Legacy."> 
+  <meta name="keywords" content="Top Four Universities in the Philippines, ADMU, Education, Courses, History, Programs">
+  <meta name="author" content="NIDEA, Megan">
+  <title>Top Four Universities in the Philippines</title>
+  <link rel="icon" href="../assets/top4univ_favicon2.png" type="image/png"/>
 
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    background-color: #f5f7fb;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    background: linear-gradient(to right, #001b4f, #002f9e);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(6px);
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background-color: #ffdd00;
+    transition: width 0.3s ease;
+  }
+
+  nav a:hover::after,
+  nav a.active::after {
+    width: 100%;
+  }
+
+  nav a:hover {
+    color: #ffdd00;
+    transform: scale(1.1);
+  }
+  nav a.active {
+    color: #ffdd00;
+    font-weight: 600;
+  }
+
+  header {
+    position: relative;
+    height: 320px;
+    background:
+      linear-gradient(to bottom, rgba(0, 0, 40, 0.1) 20%, rgba(0, 0, 60, 0.8) 100%),
+      url("assets/Ateneoheader.PNG") no-repeat center/cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    padding-bottom: 40px;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 30, 0.1), rgba(0, 0, 40, 0.85));
+    z-index: 1;
+  }
+
+  header * {
+    position: relative;
+    z-index: 2;
+  }
+
+  header img {
+    width: 90px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    animation: fadeInDown 1s ease forwards;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 0.4rem;
+    animation: fadeInUp 1.4s ease forwards;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  h2 {
+    color: #001f6b;
+    border-left: 6px solid #001f6b;
+    padding-left: 12px;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+
+  p {
+    text-align: justify;
+    margin-top: 0.8rem;
+    line-height: 1.8;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 18px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 12px;
+    border: 1px solid #d4d7e1;
+    text-align: left;
+  }
+
+  th {
+    background-color: #002f9e;
+    color: white;
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f4f7fc;
+  }
+
+  tr:hover {
+    background-color: #e7efff;
+    transition: 0.3s;
+  }
+
+  iframe {
+    display: block;
+    margin: 25px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    max-width: 100%;
+  }
+
+  footer {
+    text-align: center;
+    background: linear-gradient(to right, #001b4f, #002f9e);
+    color: white;
+    padding: 1.3rem 0;
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.4px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  footer a {
+    color: #ffdd00;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  </style>
 </head>
+
 <body>
-        <header>
-            <div>
 
-            </div>
-        <header>
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="UST.html">UST</a>
+    <a href="UP.html">UP</a>
+    <a href="LaSalle.html">La Salle</a>
+    <a href="/public/2Q1MgNidea.html" class="active">Ateneo</a>
+  </nav>
 
-    <img src="../assets/Ateneologo.png" alt="ADMU logo" width="100" height="115" style="vertical-align: middle;">
-    <h1 style="display: inline-block; vertical-align: middle; margin-left: 10px;">
-    Ateneo De Manila University (ADMU)
-</h1>
-<nav>
-    <a href="../index.html" > Home </a>
-    <a href = "./public/2Q1MgEspinosa.html" > </a>
-    <a href = "./public/2Q1MgRepredro.html" > </a>
-    <a href = "/public/2Q1MgGabriel.html" > </a>
-    <a href ='#' > Access to our Project</a>
-</nav>
-<div style="border: 2px solid #071191; padding: 20px; background-color: #71afffd0;">
- <h2>History of Ateneo</h2>
-  <p>
-    Founded in the year 1859, Ateneo de Manila University traces its roots back to when Spanish Jesuits established the Escuela Municipal de Manila, a public primary school in Intramuros, Manila. This institution was part of the Jesuits' broader educational mission, which began in the Philippines with the founding of the Colegio de Manila in 1590. The school was renamed Ateneo Municipal de Manila in 1865 and began offering secondary education, focusing on a liberal arts curriculum that emphasized the humanities. In the year 1902, during the American Colonial period, Ateneo became a private institution and was officially renamed Ateneo De Manila. The university faced challenges, including the destruction of its original campus by fire in 1932 and further devastation during World War II. After the war, Ateneo relocated to its current campus in Loyola Heights, Quezon City, in 1952. In the modern era, Ateneo de Manila University is recognized as an institution in pursuit of academic excellence and social justice. It offers a wide range of undergraduate and graduate programs across various fields, including the humanities, social sciences, natural sciences, engineering, and business. The university is also known for its active engagement in community service and social issues through various programs and initiatives.
-  </p> 
-</div>
-<br><img src="../assets/IMG_1353-1068x601.jpg" alt="image.png" width="500" height="300">
-<div style="border: 2px solid #3628ff; padding: 20px; background-color: #0582f7;">
- <h2>About UST</h2>
-  <p>
----
-</p>
-</div>
-<div style="border: 2px solid #120c5f; padding: 20px; background-color: #3461f3;">
- <h2>About UST</h2>
-  <p>
-  ---
-</p>
-</div>
+  <header>
+    <img src="../assets/Ateneologo.png" alt="Ateneo de Manila University Logo">
+    <h1>Ateneo de Manila University</h1>
+    <p><strong>History, Mission, Undergraduate Programs & University Overview</strong></p>
+  </header>
 
+  <main>
+    <h2>History</h2>
+    <p>Founded in 1859, Ateneo de Manila University traces its roots to the Escuela Municipal de Manila...</p> 
 
-<h2>Ateneo's chant</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kMkLwOCjrms?si=n4uf05iE3nyRc9Ig" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</body> style="background-image: url('../assets/1-UST-Zoom-Background_Main_Bldg_with_name.jpg'); background-size: 100%; background-repeat: repeat;"></body>
+    <img src="assets/ADMUCampus.png" alt="Ateneo de Manila University Campus">
+
+    <h2>Undergraduate Majors</h2>
+    <p>
+      Ateneo de Manila University offers a wide range of fields of specialization in the arts, sciences, and management. 
+      Each major curriculum consists of a sequence of courses that provide a strong foundation in the student’s chosen area of concentration.
+      The flexible structure of the first two years allows students to shift majors with minimal loss of time and credits.
+    </p>
+
+    <table>
+      <tr>
+        <th>Program</th>
+        <th>School</th>
+        <th>Degree Type</th>
+      </tr>
+      <tr><td>AB Literature (English)</td><td>School of Humanities</td><td>Regular Program</td></tr>
+      <tr><td>BFA Major in Information Design</td><td>School of Humanities</td><td>Regular Program</td></tr>
+      <tr><td>BS Learning Science and Design</td><td>School of Education and Learning Design</td><td>Regular Program</td></tr>
+      <tr><td>BS Management Engineering</td><td>John Gokongwei School of Management</td><td>Honors Program</td></tr>
+      <tr><td>BS Management of Applied Chemistry</td><td>John Gokongwei School of Management</td><td>Regular Program</td></tr>
+      <tr><td>BS Computer Science</td><td>School of Science and Engineering</td><td>Regular Program</td></tr>
+      <tr><td>BS Computer Engineering</td><td>School of Science and Engineering</td><td>Regular Program</td></tr>
+      <tr><td>BS Biology</td><td>School of Science and Engineering</td><td>Honors Program</td></tr>
+      <tr><td>AB Communication</td><td>School of Social Sciences</td><td>Regular Program</td></tr>
+      <tr><td>AB Political Science</td><td>School of Social Sciences</td><td>Regular Program</td></tr>
+      <tr><td>AB Economics (Honors)</td><td>School of Social Sciences</td><td>Honors Program</td></tr>
+    </table>
+
+    <h2>Ateneo Hymn – "A Song for Mary"</h2>
+    <p>The Ateneo Hymn, titled <em>"A Song for Mary"</em>, expresses devotion to the Blessed Virgin Mary...</p>
+    <iframe width="1312" height="738" src="https://www.youtube.com/embed/u7sghHIdWBk" title="Ateneo Hymn Song For Mary with lyrics" frameborder="0" allowfullscreen></iframe>
+
+    <h2>Admissions Information</h2>
+    <p>The Ateneo College Admissions process identifies students with strong academic potential...</p>
+  </main>
+
+  <footer>
+    &copy; 2025 Ateneo de Manila University — All Rights Reserved
+  </footer>
 </body>
-
+</html>
