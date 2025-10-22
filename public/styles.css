@@ -16,32 +16,57 @@ body {
 
 h1 {
     text-transform: uppercase;
-    word-spacing:10px;
+    word-spacing: 10px;
     letter-spacing: -3px;
-    text-shadow: 2px 2px 5px yourcolor;
-    margin-bottom: 0 #54ABD3
-
+    margin-bottom: 0;
+    text-shadow: 2px 2px 5px #54abd3
 }
+
 .intro {
-  font-size: 1.5em; 
-  margin-top: 0;    
-  text-decoration: underline; 
+    font-size: 1.5em;
+    margin-top: 0;
+    text-decoration: underline;
 }
 
-section img:firstchild {
+img:first-child {
     display: block;
     width: 25vw;
     height: 25vh;
     margin-left: auto;
     margin-right: auto;
-    padding-top
+    padding-top: 5px;
+}
 
 .container img {
     width: 50px;
     height: 50px;
-    margin-right:  10px;
+    margin-right: 10px;
     float: left;
 }
- 
+
+a[target="_blank"] {
+    color: blue;
 }
 
+a[href="/internal-page"] {
+    color: red;
+}
+
+a:hover {
+    color: blueviolet;
+}
+
+.container ul {
+    list-style-type: none;
+    clear: left;
+    padding: 0;
+}
+
+.container ul li {
+    width: 150px;
+    padding: 5px;
+    background-color: cornsilk;
+    text-align: center;
+    display: inline-block;
+    border-radius: 0px 25px;
+}
