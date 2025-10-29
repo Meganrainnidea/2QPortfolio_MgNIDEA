@@ -46,6 +46,9 @@ Each princess’s individuality, the challenges they faced, and the lessons they
 ### Games and Quizzes
 -This features a game powered by javascript entitled "Which Disney Princess are you". This quiz will ask users questions based on their traits and likes. After they are done answering, the site will show which Disney Princess best suits their personality.
 
+### Disney Merchandise
+- This features Official Disney Merch like shirts, accesories, hats and many more! 
+
 ### Sources & References
 - Organized citations and links to the **Official Disney Website**  
 - Hyperlinked text with hover highlights  
