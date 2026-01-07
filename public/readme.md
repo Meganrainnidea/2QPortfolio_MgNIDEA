@@ -3,11 +3,11 @@
 ## Website Title
 **The Princess Chronicles**
 
-### Second Title
+## Second Title
 *Where Magic, Courage, and Dreams Come Alive*
 
 ## Logo
-<img src="../assets/wdproj_logo-nobg.png" alt="The Princess Chronicles Logo" width="120" height="120">
+<img src="./assets/wdproj_logo-nobg.png" alt="The Princess Chronicles Logo" width="200" height="200">
 
 
 ## Description
@@ -17,7 +17,7 @@ Each princess’s individuality, the challenges they faced, and the lessons they
 
 ## Webpage Breakdown
 
-### Home Page
+### Homepage
 - Animated landing banner showing all princesses  
 - This will feature a header, with a simple menu on the top section wherein the user can go to the other webpages (Home, Princesses, Adventures, Media, Fan Realm).
 - **JavaScript-powered carousel** of all princesses  
@@ -44,7 +44,7 @@ Each princess’s individuality, the challenges they faced, and the lessons they
 - Embedded YouTube trailers and merchandise previews  
 
 ### Games and Quizzes
--This features a game powered by javascript entitled "Which Disney Princess are you". This quiz will ask users questions based on their traits and likes. After they are done answering, the site will show which Disney Princess best suits their personality.
+- This features a game powered by javascript entitled "Which Disney Princess are you". This quiz will ask users questions based on their traits and likes. After they are done answering, the site will show which Disney Princess best suits their personality.
 
 ### Disney Merchandise
 - This features Official Disney Merch like shirts, accesories, hats and many more! 
@@ -70,10 +70,13 @@ Each princess’s individuality, the challenges they faced, and the lessons they
   - Each answer is associated with a specific Disney Princess  
   - Upon completion, the quiz dynamically calculates the results and displays **which Disney Princess best matches the user’s personality**  
   - Provides a fun, interactive way for users to explore the characters and encourages **replayability**  
-
 - **Additional JS Features:**  
   - Poll voting logic (simple vote counter)  
   - Hover pop-ups for **Life Lessons**  
 
-
-
+## Wireframes:
+<img src="./assets/CSQ2Proj_Homepage.png" alt="Homepage Wireframe"/>
+<img src="./assets/CSQ2Proj_MeetthePrincesses.png" alt="Meet the Princesses Wireframe"/>
+<img src="./assets/CSQ2Proj_LifeLessons.png" alt="Life Lessons Wireframe"/>
+<img src="./assets/CSQ2Proj_GamesandQuizzes.png" alt="Games and Quizzes Wireframe"/>
+<img src="./assets/CSQ2Proj_Merchandise.png" alt="Merchandise Wireframe"/>
