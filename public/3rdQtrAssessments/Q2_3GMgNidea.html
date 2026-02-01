@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Club Sign-Up & View Signups</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; }
+
+/* Increase width so table fits without overflowing */
+form, #signupTableContainer { width: 900px; margin: auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+
+fieldset { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; }
+legend { font-weight: bold; }
+label { display: block; margin-bottom: 10px; }
+input, select, textarea { width: 100%; padding: 6px; margin-top: 4px; }
+textarea { resize: vertical; }
+input:focus, select:focus, textarea:focus { border: 2px solid #0077cc; background-color: #eef6ff; outline: none; }
+.invalid { border: 2px solid red; background-color: #ffecec; }
+
+.buttons { text-align: center; }
+.buttons input, .buttons button { width: 140px; margin: 5px; padding: 8px; cursor: pointer; border-radius: 5px; border: none; }
+.buttons input[type="submit"] { background: #28a745; color: white; }
+.buttons input[type="reset"] { background: #dc3545; color: white; }
+.buttons button { background: #0077cc; color: white; }
+.buttons button:hover { opacity: 0.9; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+th { background: #0077cc; color: white; }
+.message { font-weight: bold; margin-top: 15px; color: #555; }
+#signupTableContainer { display: none; }
+.back-link { display: inline-block; margin-top: 15px; text-decoration: none; color: #0077cc; cursor: pointer; }
+.back-link:hover { text-decoration: underline; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+</style>
+<script>
+// Highlight empty fields
+function checkEmpty(el){ el.value.trim() === "" ? el.classList.add("invalid") : el.classList.remove("invalid"); }
+
+// Save signup
+function saveSignup(event){
+  event.preventDefault(); // prevent form from refreshing page
+
+  if(!confirm("Are you sure you want to submit this application?")) return;
+
+  // Get all form values
+  const signup = {
+    studentID: document.querySelector('[name="student_id"]').value,
+    fullName: document.querySelector('[name="full_name"]').value,
+    birthday: document.querySelector('[name="birthday"]').value,
+    email: document.querySelector('[name="email"]').value,
+    mobile: document.querySelector('[name="mobile"]').value,
+    grade: document.querySelector('[name="grade_level"]').value,
+    status: document.querySelector('input[name="status"]:checked')?.value || "",
+    organization: document.querySelector('[name="organization"]').value,
+    reason: document.querySelector('[name="reason"]').value
+  };
+
+  // Save to localStorage
+  let allSignups = JSON.parse(localStorage.getItem('clubSignups')) || [];
+  allSignups.push(signup);
+  localStorage.setItem('clubSignups', JSON.stringify(allSignups));
+
+  alert("Your application has been saved!");
+  document.getElementById("signupForm").reset();
+
+  if(document.getElementById("signupTableContainer").style.display === "block"){
+    loadSignups();
+  }
+}
+
+function showSignups(){
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("signupTableContainer").style.display = "block";
+  loadSignups();
+}
+
+function backToForm(){
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("signupTableContainer").style.display = "none";
+}
+
+function loadSignups(){
+  const data = JSON.parse(localStorage.getItem('clubSignups')) || [];
+  const clubSelect = document.getElementById('clubFilter');
+  const tableBody = document.getElementById('signupTableBody');
+  const totalSpan = document.getElementById('totalSignups');
+
+  tableBody.innerHTML = '';
+  const selectedClub = clubSelect.value;
+  const filtered = selectedClub === "ALL" ? data : data.filter(s => s.organization === selectedClub);
+
+  if(filtered.length === 0){
+    tableBody.innerHTML = `<tr><td colspan="8" class="message">${data.length === 0 ? "No sign-ups saved." : "No sign-ups for this club."}</td></tr>`;
+  } else {
+    filtered.forEach(s => {
+      tableBody.innerHTML += `<tr>
+        <td>${s.organization}</td>
+        <td>${s.studentID}</td>
+        <td>${s.fullName}</td>
+        <td>${s.grade}</td>
+        <td>${s.email}</td>
+        <td>${s.mobile}</td>
+        <td>${s.status}</td>
+        <td>${s.reason}</td>
+      </tr>`;
+    });
+  }
+  totalSpan.textContent = filtered.length;
+}
+</script>
+</head>
+<body>
+<form id="signupForm" onsubmit="saveSignup(event)" onreset="return confirm('Are you sure you want to reset all entered information?')">
+
+<fieldset>
+<legend>Personal Information</legend>
+<label>Student ID:<input type="number" name="student_id" required onblur="checkEmpty(this)"></label>
+<label>Full Name:<input type="text" name="full_name" required onblur="checkEmpty(this)"></label>
+<label>Birthday:<input type="date" name="birthday" required></label>
+<label>Email Address:<input type="email" name="email" required onblur="checkEmpty(this)"></label>
+</fieldset>
+
+<fieldset>
+<legend>Organization Details</legend>
+<label>Mobile Phone:<input type="text" name="mobile" required onblur="checkEmpty(this)"></label>
+<label>Grade Level:
+<select name="grade_level" required>
+<option value="">-- Select Grade Level --</option>
+<option value="Grade 7">Grade 7</option>
+<option value="Grade 8">Grade 8</option>
+<option value="Grade 9">Grade 9</option>
+<option value="Grade 10">Grade 10</option>
+<option value="Grade 11">Grade 11</option>
+<option value="Grade 12">Grade 12</option>
+</select>
+</label>
+<label>Intern / Extern:<br>
+<input type="radio" name="status" value="Intern" required> Intern
+<input type="radio" name="status" value="Extern" required> Extern
+</label>
+<label>Preferred Club:<select name="organization" required>
+<option value="">-- Select Club --</option>
+<option value="Model United Nations">Model United Nations</option>
+<option value="The Science Scholar">The Science Scholar</option>
+<option value="Lagablab">Ang Lagablab</option>
+<option value="Solace">Solace</option>
+<option value="Flux Swimming Club">Flux Swimming Club</option>
+</select></label>
+<label>Why do you want to join?<textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea></label>
+</fieldset>
+
+<div class="buttons">
+<input type="submit" value="Submit">
+<input type="reset" value="Reset">
+<button type="button" onclick="showSignups()">View Sign-Ups</button>
+</div>
+
+</form>
+
+<!-- SIGN-UPS TABLE -->
+<div id="signupTableContainer">
+<h1>Show List of Students Who Signed-Up</h1>
+<span class="back-link" onclick="backToForm()">Back to Sign-Up Form</span><br><br>
+<label>Select Club: </label>
+<select id="clubFilter" onchange="loadSignups()">
+<option value="ALL">-- All Clubs --</option>
+<option value="Model United Nations">Model United Nations</option>
+<option value="The Science Scholar">The Science Scholar</option>
+<option value="Lagablab">Ang Lagablab</option>
+<option value="Solace">Solace</option>
+<option value="Flux Swimming Club">Flux Swimming Club</option>
+</select>
+
+<p>Total Signups: <span id="totalSignups">0</span></p>
+
+<table>
+<thead>
+<tr>
+<th>Club</th>
+<th>ID</th>
+<th>Fullname</th>
+<th>Grade</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>Intern|Extern</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody id="signupTableBody"></tbody>
+</table>
+</div>
+
+</body>
+</html>
