@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Q4 Graded Exercise - Movies</title>
+
+<style>
+/* ===============================
+   GENERAL PAGE STYLE
+================================*/
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* ===============================
+   FORM CONTAINER
+================================*/
+.container {
+    background: white;
+    width: 420px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+h2 {
+    text-align: center;
+}
+
+/* ===============================
+   INPUTS
+================================*/
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* ===============================
+   BUTTON
+================================*/
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2d7ef7;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1b5fcc;
+}
+
+/* ===============================
+   STAR RATING
+================================*/
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: gray;
+}
+
+.star.selected {
+    color: gold;
+}
+
+/* ===============================
+   MOVIE LIST
+================================*/
+.movie-item {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Add a Movie</h2>
+
+<!-- ===============================
+     MOVIE FORM
+================================-->
+<form id="movieForm">
+
+<label>Title</label>
+<input type="text" id="title" required>
+
+<label>Year</label>
+<input type="number" id="year" required>
+
+<label>Genre</label>
+<select id="genre">
+    <option>Action</option>
+    <option>Comedy</option>
+    <option>Drama</option>
+    <option>Horror</option>
+    <option>Sci-Fi</option>
+</select>
+
+<label>Rating</label>
+<div id="starContainer">
+    <span class="star" data-value="1">★</span>
+    <span class="star" data-value="2">★</span>
+    <span class="star" data-value="3">★</span>
+    <span class="star" data-value="4">★</span>
+    <span class="star" data-value="5">★</span>
+</div>
+
+<br>
+
+<button type="submit">Add Movie</button>
+
+</form>
+
+<h3>Movie List</h3>
+<div id="movieList"></div>
+
+</div>
+
+<script>
+/* =====================================
+   GLOBAL VARIABLES
+=====================================*/
+const stars = document.querySelectorAll(".star");
+const movieForm = document.getElementById("movieForm");
+const movieList = document.getElementById("movieList");
+
+let selectedRating = 0;
+
+/* =====================================
+   STAR CLICK FUNCTIONALITY
+=====================================*/
+stars.forEach(star => {
+    star.addEventListener("click", () => {
+        selectedRating = star.dataset.value;
+
+        stars.forEach(s =>
+            s.classList.toggle(
+                "selected",
+                s.dataset.value <= selectedRating
+            )
+        );
+    });
+});
+
+/* =====================================
+   THIS PART SAVES THE MOVIE TO LOCAL STORAGE
+=====================================*/
+movieForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const movie = {
+        title: document.getElementById("title").value,
+        year: document.getElementById("year").value,
+        genre: document.getElementById("genre").value,
+        rating: selectedRating
+    };
+
+    // Get existing movies
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    // Add new movie
+    movies.push(movie);
+
+    // Save STRINGIFIED JS OBJECT
+    localStorage.setItem("movies", JSON.stringify(movies));
+
+    movieForm.reset();
+    selectedRating = 0;
+    stars.forEach(s => s.classList.remove("selected"));
+
+    displayMovies();
+});
+
+/* =====================================
+   DISPLAY MOVIES (READ OPERATION)
+=====================================*/
+function displayMovies() {
+
+    movieList.innerHTML = "";
+
+    const movies =
+        JSON.parse(localStorage.getItem("movies")) || [];
+
+    movies.forEach(movie => {
+
+        let starDisplay = "★".repeat(movie.rating);
+
+        const div = document.createElement("div");
+        div.className = "movie-item";
+
+        div.innerHTML =
+        `<strong>${movie.title}</strong> (${movie.year}) - 
+        ${movie.genre} <br>
+        Rating: <span style="color:gold">${starDisplay}</span>`;
+
+        movieList.appendChild(div);
+    });
+}
+
+/* Load movies when page opens */
+displayMovies();
+
+</script>
+
+</body>
+</html>
