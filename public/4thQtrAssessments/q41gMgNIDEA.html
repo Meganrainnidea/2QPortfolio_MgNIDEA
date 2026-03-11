@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Q4 Graded Exercise - Movies</title>
+<title>Q4 Graded Exercise - Movies (UD)</title>
 
 <style>
 /* ===============================
@@ -90,6 +90,26 @@ button:hover {
     padding: 10px;
     margin-top: 10px;
     border-radius: 6px;
+    display: flex;
+    justify-content: space-between; /* NEW: for Delete button */
+    align-items: center;           /* NEW: for Delete button */
+}
+
+.movie-info {
+    flex-grow: 1; /* NEW: allow space for Delete button */
+}
+
+.delete-btn {
+    background: #ff4d4d; /* NEW: Delete button style */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
 }
 </style>
 </head>
@@ -155,7 +175,7 @@ let selectedRating = 0;
 =====================================*/
 stars.forEach(star => {
     star.addEventListener("click", () => {
-        selectedRating = star.dataset.value;
+        selectedRating = Number(star.dataset.value); // NEW: ensure number type
 
         stars.forEach(s =>
             s.classList.toggle(
@@ -172,18 +192,41 @@ stars.forEach(star => {
 movieForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const movie = {
-        title: document.getElementById("title").value,
-        year: document.getElementById("year").value,
-        genre: document.getElementById("genre").value,
-        rating: selectedRating
-    };
+    const title = document.getElementById("title").value.trim();
+    const year = document.getElementById("year").value;
+    const genre = document.getElementById("genre").value;
+
+    if(selectedRating === 0) {
+        alert("Please select a rating!");
+        return;
+    }
 
     // Get existing movies
     let movies = JSON.parse(localStorage.getItem("movies")) || [];
 
-    // Add new movie
-    movies.push(movie);
+    // NEW: Check if movie title already exists for Update
+    const existingIndex = movies.findIndex(m => m.title.toLowerCase() === title.toLowerCase());
+
+    if(existingIndex >= 0) {
+        // UPDATE existing movie: average rating
+        const existingMovie = movies[existingIndex];
+        const newRating = Math.round((existingMovie.rating + selectedRating) / 2);
+
+        movies[existingIndex] = {
+            title,
+            year,
+            genre,
+            rating: newRating
+        };
+    } else {
+        // ADD new movie
+        movies.push({
+            title,
+            year,
+            genre,
+            rating: selectedRating
+        });
+    }
 
     // Save STRINGIFIED JS OBJECT
     localStorage.setItem("movies", JSON.stringify(movies));
@@ -192,7 +235,7 @@ movieForm.addEventListener("submit", function(e) {
     selectedRating = 0;
     stars.forEach(s => s.classList.remove("selected"));
 
-    displayMovies();
+    displayMovies(); // NEW: refresh movie list after update/add
 });
 
 /* =====================================
@@ -202,21 +245,34 @@ function displayMovies() {
 
     movieList.innerHTML = "";
 
-    const movies =
-        JSON.parse(localStorage.getItem("movies")) || [];
+    const movies = JSON.parse(localStorage.getItem("movies")) || [];
 
-    movies.forEach(movie => {
+    movies.forEach((movie, index) => {
 
         let starDisplay = "★".repeat(movie.rating);
 
+        // NEW: container for movie info and delete button
         const div = document.createElement("div");
         div.className = "movie-item";
 
-        div.innerHTML =
-        `<strong>${movie.title}</strong> (${movie.year}) - 
-        ${movie.genre} <br>
-        Rating: <span style="color:gold">${starDisplay}</span>`;
+        const infoDiv = document.createElement("div");
+        infoDiv.className = "movie-info";
+        infoDiv.innerHTML = `<strong>${movie.title}</strong> (${movie.year}) - ${movie.genre} <br> Rating: <span style="color:gold">${starDisplay}</span>`;
 
+        // NEW: Delete button functionality
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => {
+            if(confirm(`Are you sure you want to delete "${movie.title}"?`)) {
+                movies.splice(index, 1); // Remove from array
+                localStorage.setItem("movies", JSON.stringify(movies)); // Update localStorage
+                displayMovies(); // Refresh list
+            }
+        });
+
+        div.appendChild(infoDiv);
+        div.appendChild(deleteBtn);
         movieList.appendChild(div);
     });
 }
