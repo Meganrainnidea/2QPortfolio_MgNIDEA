@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Q4 Graded Exercise - Movies (UD)</title>
+
+<style>
+/* ===============================
+   GENERAL PAGE STYLE
+================================*/
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffdefd;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* ===============================
+   FORM CONTAINER
+================================*/
+.container {
+    background: white;
+    width: 420px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+h2 {
+    text-align: center;
+}
+
+/* ===============================
+   INPUTS
+================================*/
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* ===============================
+   BUTTON
+================================*/
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2d7ef7;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1b5fcc;
+}
+
+/* ===============================
+   STAR RATING WITH YELLOW COLOR
+================================*/
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: gray;
+}
+
+.star.selected {
+    color: gold;
+}
+
+/* ===============================
+   MOVIE LIST
+================================*/
+.movie-item {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between; /* NEW: for Delete button */
+    align-items: center;           /* NEW: for Delete button */
+}
+
+.movie-info {
+    flex-grow: 1; /* NEW: allow space for Delete button */
+}
+
+.delete-btn {
+    background: #ff4d4d; /* NEW: Delete button style */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Add a Movie</h2>
+
+<!-- ===============================
+     MOVIE FORM
+================================-->
+<form id="movieForm">
+
+<label>Title</label>
+<input type="text" id="title" required>
+
+<label>Year</label>
+<input type="number" id="year" required>
+
+<label>Genre</label>
+<select id="genre">
+    <option>Action</option>
+    <option>Comedy</option>
+    <option>Drama</option>
+    <option>Horror</option>
+    <option>Sci-Fi</option>
+</select>
+
+<label>Rating</label>
+<div id="starContainer">
+    <span class="star" data-value="1">★</span>
+    <span class="star" data-value="2">★</span>
+    <span class="star" data-value="3">★</span>
+    <span class="star" data-value="4">★</span>
+    <span class="star" data-value="5">★</span>
+</div>
+
+<br>
+
+<button type="submit">Add Movie</button>
+
+</form>
+
+<h3>Movie List</h3>
+<div id="movieList"></div>
+
+</div>
+
+<script>
+/* =====================================
+   GLOBAL VARIABLES
+=====================================*/
+const stars = document.querySelectorAll(".star");
+const movieForm = document.getElementById("movieForm");
+const movieList = document.getElementById("movieList");
+
+let selectedRating = 0;
+
+/* =====================================
+   STAR CLICK FUNCTIONALITY
+=====================================*/
+stars.forEach(star => {
+    star.addEventListener("click", () => {
+        selectedRating = Number(star.dataset.value); // NEW: ensure number type
+
+        stars.forEach(s =>
+            s.classList.toggle(
+                "selected",
+                s.dataset.value <= selectedRating
+            )
+        );
+    });
+});
+
+/* =====================================
+   THIS PART SAVES THE MOVIE TO LOCAL STORAGE
+=====================================*/
+movieForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById("title").value.trim();
+    const year = document.getElementById("year").value;
+    const genre = document.getElementById("genre").value;
+
+    if(selectedRating === 0) {
+        alert("Please select a rating!");
+        return;
+    }
+
+    // Get existing movies
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    // NEW: Check if movie title already exists for Update
+    const existingIndex = movies.findIndex(m => m.title.toLowerCase() === title.toLowerCase());
+
+    if(existingIndex >= 0) {
+        // UPDATE existing movie: average rating
+        const existingMovie = movies[existingIndex];
+        const newRating = Math.round((existingMovie.rating + selectedRating) / 2);
+
+        movies[existingIndex] = {
+            title,
+            year,
+            genre,
+            rating: newRating
+        };
+    } else {
+        // ADD new movie
+        movies.push({
+            title,
+            year,
+            genre,
+            rating: selectedRating
+        });
+    }
+
+    // Save STRINGIFIED JS OBJECT
+    localStorage.setItem("movies", JSON.stringify(movies));
+
+    movieForm.reset();
+    selectedRating = 0;
+    stars.forEach(s => s.classList.remove("selected"));
+
+    displayMovies(); // NEW: refresh movie list after update/add
+});
+
+/* =====================================
+   DISPLAY MOVIES (READ OPERATION)
+=====================================*/
+function displayMovies() {
+
+    movieList.innerHTML = "";
+
+    const movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    movies.forEach((movie, index) => {
+
+        let starDisplay = "★".repeat(movie.rating);
+
+        // NEW: container for movie info and delete button
+        const div = document.createElement("div");
+        div.className = "movie-item";
+
+        const infoDiv = document.createElement("div");
+        infoDiv.className = "movie-info";
+        infoDiv.innerHTML = `<strong>${movie.title}</strong> (${movie.year}) - ${movie.genre} <br> Rating: <span style="color:gold">${starDisplay}</span>`;
+
+        // NEW: Delete button functionality
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => {
+            if(confirm(`Are you sure you want to delete "${movie.title}"?`)) {
+                movies.splice(index, 1); // Remove from array
+                localStorage.setItem("movies", JSON.stringify(movies)); // Update localStorage
+                displayMovies(); // Refresh list
+            }
+        });
+
+        div.appendChild(infoDiv);
+        div.appendChild(deleteBtn);
+        movieList.appendChild(div);
+    });
+}
+
+/* Load movies when page opens */
+displayMovies();
+
+</script>
+
+</body>
+</html>
